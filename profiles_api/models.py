@@ -11,11 +11,11 @@ class UserProfileManager(BaseUserManager):
         """Create a new user profile"""
         if not email:
             raise ValueError("User must have an email address")
-        email=self.normalize_emial(email)
+        email=self.normalize_email(email)
         user=self.model(email=email,name=name)
 
         """passward will be hashed"""
-        user.set_password(passward)
+        user.set_password(password)
         user.save(using=self._db)
 
         return user
@@ -40,7 +40,7 @@ class UserProfile(AbstractBaseUser, PermissionsMixin):
     objects= UserProfileManager()
 
     USERNAME_FIELD='email'
-    REQUIRED_FILEDS=['name']
+    REQUIRED_FIELDS=['name']
 
     def get_full_name(self):
         """"Retrieve full name of user"""
